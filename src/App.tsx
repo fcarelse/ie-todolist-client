@@ -5,10 +5,10 @@ import {
   Navigate,
   Route
 } from 'react-router-dom'
-import { AboutPage } from './pages/About/AboutPage.tsx';
-import { LoginPage } from './pages/Login/LoginPage.tsx';
-import { TodolistPage } from './pages/Todolist/TodolistPage.tsx';
-import { NavbarComp } from './components/Navbar/NavbarComp.tsx';
+import { AboutPage } from './pages/About/AboutPage';
+import { LoginPage } from './pages/Login/LoginPage';
+import { TodolistPage } from './pages/Todolist/TodolistPage';
+import { NavbarComp } from './components/Navbar/NavbarComp';
 
 
 function App() {

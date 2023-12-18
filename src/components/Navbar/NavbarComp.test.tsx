@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'
-import {NavbarComp} from './NavbarComp.tsx'
+import {NavbarComp} from './NavbarComp'
 import {test, expect} from '@jest/globals';
 
 test('Is Functional Component',()=>{

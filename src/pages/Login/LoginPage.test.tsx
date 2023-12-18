@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'
-import {LoginPage} from './LoginPage.tsx'
+import {LoginPage} from './LoginPage'
 import {test, expect} from '@jest/globals';
 
 test('Is Functional Component',()=>{
