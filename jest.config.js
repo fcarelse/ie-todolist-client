@@ -1,6 +1,6 @@
 module.exports = {
 	verbose: true,
 	setupFilesAfterEnv: [
-		"<rootDir>/test/setupTests.js"
+		process.cwd()+"/src/setupTests.js"
  ],
 }
