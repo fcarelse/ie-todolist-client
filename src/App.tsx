@@ -9,13 +9,18 @@ import { AboutPage } from './pages/About/AboutPage';
 import { LoginPage } from './pages/Login/LoginPage';
 import { TodolistPage } from './pages/Todolist/TodolistPage';
 import { NavbarComp } from './components/Navbar/NavbarComp';
-
+import { AuthContext } from './context/Auth/AuthContext';
+import { AuthService } from './service/Auth/AuthService';
 
 function App() {
+
+  const [token, setToken] = React.useState('');
+  AuthService.setTokenSetter(setToken);
+
   return (
-    <div>
-      <NavbarComp />
+    <AuthContext.Provider value={token}>
       <BrowserRouter>
+        <NavbarComp />
         <Routes>
           <Route path="/">
             <Route path="about" element={<AboutPage/>} />
@@ -25,7 +30,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </div>
+    </AuthContext.Provider>
   );
 }
 
