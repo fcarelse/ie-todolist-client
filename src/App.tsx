@@ -5,14 +5,12 @@ import { LoginPage } from "./pages/Login/LoginPage";
 import { TodolistPage } from "./pages/Todolist/TodolistPage";
 import { NavbarComp } from "./components/Navbar/NavbarComp";
 import { AuthContext } from "./context/Auth/AuthContext";
-import { AuthService } from "./service/Auth/AuthService";
+import { AuthService, useAuthService } from "./service/Auth/useAuthService";
 
 function App() {
-  const [token, setToken] = React.useState("");
-  AuthService.setTokenSetter(setToken);
-
+  const { token, login } = useAuthService();
   return (
-    <AuthContext.Provider value={token}>
+    <AuthContext.Provider value={{ token, login }}>
       <BrowserRouter>
         <NavbarComp />
         <Routes>
