@@ -6,7 +6,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/Auth/AuthContext";
+import { useAuthContext } from "../../context/Auth/AuthContext";
 
 const navItems = {
   guest: [
@@ -22,7 +22,7 @@ const navItems = {
 
 export const NavbarComp = () => {
   const navigate = useNavigate();
-  const token = React.useContext(AuthContext);
+  const { token } = useAuthContext();
 
   const NavOptions = React.useMemo(
     () => () =>
