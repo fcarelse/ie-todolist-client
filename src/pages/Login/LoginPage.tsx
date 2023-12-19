@@ -1,7 +1,3 @@
-import React from 'react';
+import React from "react";
 
-export const LoginPage = ({})=>(
-	<div>
-		Login Page
-	</div>
-);
+export const LoginPage = ({}) => <div>Login Page</div>;
