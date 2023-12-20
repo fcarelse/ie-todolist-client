@@ -9,4 +9,11 @@ export type LoginHandler = ({
   password,
 }: Credentials) => Promise<{ token: string }>;
 
-export type AuthContextValue = { token: string; login: LoginHandler };
+export type AuthContextValue = { token: string };
+
+export type FetchParamaters = {
+  url: string;
+  data: object;
+  method: FetchMethods;
+  token: string;
+};

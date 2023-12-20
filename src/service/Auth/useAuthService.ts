@@ -12,12 +12,12 @@ export const useAuthService = () => {
 
   const login: LoginHandler = async ({ username, password }: Credentials) => {
     try {
-      const data: { token: string } = await fetchData(
-        "",
-        { username, password },
-        "post",
-        ""
-      );
+      const data: { token: string } = await fetchData({
+        url: "/user/login",
+        data: { username, password },
+        method: "post",
+        token: "",
+      });
       setToken(data.token);
       return data;
     } catch (e) {

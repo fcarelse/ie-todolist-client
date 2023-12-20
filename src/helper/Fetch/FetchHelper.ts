@@ -1,10 +1,12 @@
-import { FetchMethods } from "../Types";
+import { FetchMethods, FetchParamaters } from "../Types";
 
 export const fetchData = async (
-  url: string = "",
-  data: object = {},
-  method: FetchMethods = "post",
-  token: string = ""
+  { url, data, method, token }: FetchParamaters = {
+    url: "",
+    data: {},
+    method: "post",
+    token: "",
+  }
 ) => {
   // Default options are marked with *
   const res = await fetch(url, {

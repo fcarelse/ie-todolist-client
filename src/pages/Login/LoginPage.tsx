@@ -5,37 +5,18 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { ThemeProvider } from "@mui/material/styles";
 import { defaultTheme } from "../../themes/Default/DefaultTheme";
-import { useAuthContext } from "../../context/Auth/AuthContext";
 import { Credentials } from "../../helper/Types";
-
-const Copyright = () => {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      sx={{ mt: 8, mb: 4 }}
-    >
-      {"Copyright ©"}
-      <Link color="inherit" href="https://chatrooms.party/">
-        Todolist Ireland
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-};
+import { Copyright } from "../../components/Copyright/CopyrightComp";
+import { useAuthService } from "../../service/Auth/useAuthService";
 
 export const LoginPage = ({}) => {
-  const { login } = useAuthContext();
+  const { login } = useAuthService();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const credentials: Credentials = { username, password };
@@ -44,7 +25,7 @@ export const LoginPage = ({}) => {
     event: FormEvent
   ) => {
     event.preventDefault();
-    await login(credentials);
+    login(credentials);
   };
 
   return (

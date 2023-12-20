@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter,
-  Routes,
-  Navigate,
-  Route,
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Navigate, Route } from "react-router-dom";
 import { AboutPage } from "./pages/About/AboutPage";
 import { LoginPage } from "./pages/Login/LoginPage";
 import { TodolistPage } from "./pages/Todolist/TodolistPage";
@@ -15,9 +9,10 @@ import { useAuthService } from "./service/Auth/useAuthService";
 import { AuthContextValue } from "./helper/Types";
 
 function App() {
-  const { token, login }: AuthContextValue = useAuthService();
+  const { token } = useAuthService();
+
   return (
-    <AuthContext.Provider value={{ token, login }}>
+    <AuthContext.Provider value={{ token }}>
       <BrowserRouter>
         <NavbarComp />
         <Routes>
