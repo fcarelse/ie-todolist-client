@@ -1,8 +1,9 @@
 import React from "react";
+import { AuthContextValue, Credentials } from "../../helper/Types";
 
 export const AuthContext = React.createContext({
   token: "",
-  login: () => {},
 });
 
-export const useAuthContext = () => React.useContext(AuthContext);
+export const useAuthContext = (): AuthContextValue =>
+  React.useContext(AuthContext);

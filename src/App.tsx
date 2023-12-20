@@ -5,12 +5,14 @@ import { LoginPage } from "./pages/Login/LoginPage";
 import { TodolistPage } from "./pages/Todolist/TodolistPage";
 import { NavbarComp } from "./components/Navbar/NavbarComp";
 import { AuthContext } from "./context/Auth/AuthContext";
-import { AuthService, useAuthService } from "./service/Auth/useAuthService";
+import { useAuthService } from "./service/Auth/useAuthService";
+import { AuthContextValue } from "./helper/Types";
 
 function App() {
-  const { token, login } = useAuthService();
+  const { token } = useAuthService();
+
   return (
-    <AuthContext.Provider value={{ token, login }}>
+    <AuthContext.Provider value={{ token }}>
       <BrowserRouter>
         <NavbarComp />
         <Routes>
