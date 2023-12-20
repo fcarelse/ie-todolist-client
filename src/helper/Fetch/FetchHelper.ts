@@ -22,7 +22,7 @@ export const fetchData = async (
   });
   try {
     return await res.json();
-  } catch (e) {
+  } catch (e: any) {
     // throw new Error('Non JSON data returned');
     return { error: 500, message: e.message ? e.message : e };
   }

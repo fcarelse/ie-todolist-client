@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { fetchData } from "../../helper/Fetch/FetchHelper";
+import { LoginHandler } from "../../helper/Types";
 
 export type Credentials = {
   username: string;
@@ -9,7 +10,7 @@ export type Credentials = {
 export const useAuthService = () => {
   const [token, setToken] = useState("");
 
-  const login = async ({ username, password }: Credentials) => {
+  const login: LoginHandler = async ({ username, password }: Credentials) => {
     try {
       const data: { token: string } = await fetchData(
         "",
@@ -22,6 +23,7 @@ export const useAuthService = () => {
     } catch (e) {
       console.log("could not login");
     }
+    return { token: "" };
   };
 
   return { login, token };
