@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FetchError, fetchData } from "../../helper/Fetch/FetchHelper";
-import { ErrorResponse, LoginHandler } from "../../helper/Types";
+import { ErrorResponse, LoginHandlerType } from "../../helper/Types";
 
 export type Credentials = {
   username: string;
@@ -9,23 +9,26 @@ export type Credentials = {
 
 export const useAuthService = () => {
   const [token, setToken] = useState<string>("");
-  const [loading, setLoading] = useState<Boolean>(false);
+  const [isLoading, setIsLoading] = useState<Boolean>(false);
   const [error, setError] = useState<ErrorResponse>({ error: 0, message: "" });
 
-  const login: LoginHandler = async ({ username, password }: Credentials) => {
+  const login: LoginHandlerType = async ({
+    username,
+    password,
+  }: Credentials) => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       const data: { token: string } = await fetchData({
         url: "/user/login",
         data: { username, password },
         method: "post",
         token: "",
       });
-      setLoading(false);
+      setIsLoading(false);
       setToken(data.token);
       return data;
     } catch (e: any) {
-      setLoading(false);
+      setIsLoading(false);
       if (e instanceof FetchError) {
         setError({
           error: e.status,
@@ -44,5 +47,5 @@ export const useAuthService = () => {
     return { token: "" };
   };
 
-  return { login, token, loading, error };
+  return { login, token, isLoading, error };
 };

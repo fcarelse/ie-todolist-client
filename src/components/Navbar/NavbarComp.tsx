@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/Auth/AuthContext";
+import { useAuthService } from "../../service/Auth/useAuthService";
 
 const navItems = {
   guest: [
@@ -23,7 +24,7 @@ const navItems = {
 export const NavbarComp = () => {
   // const navigate = useNavigate();
   const navigate = (a: string) => {}; // Placeholder
-  const { token } = useAuthContext();
+  const { token, isLoading } = useAuthService();
 
   const NavOptions = React.useMemo(
     () => () =>
@@ -49,6 +50,7 @@ export const NavbarComp = () => {
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
             <span onClick={() => navigate("/")}>Todolist IE</span>
+            {isLoading ? "Loading..." : ""}
           </Typography>
           <NavOptions />
         </Toolbar>
