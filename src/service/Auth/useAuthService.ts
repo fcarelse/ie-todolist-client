@@ -23,7 +23,7 @@ export const useAuthService = () => {
     } catch (e) {
       console.log("could not login");
     }
-    return {token:''}
+    return { token: "" };
   };
 
   return { login, token };

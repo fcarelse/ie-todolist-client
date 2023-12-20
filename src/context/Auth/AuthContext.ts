@@ -1,9 +1,14 @@
 import React from "react";
-import { LoginHandler, AuthContextData, Credentials } from "../../helper/Types";
+import {
+  LoginHandler,
+  AuthContextValue,
+  Credentials,
+} from "../../helper/Types";
 
 export const AuthContext = React.createContext({
   token: "",
-  login: async ({username,password}:Credentials)=>({token: ''}),
+  login: async ({ username, password }: Credentials) => ({ token: "" }),
 });
 
-export const useAuthContext = ():AuthContextData => React.useContext(AuthContext);
+export const useAuthContext = (): AuthContextValue =>
+  React.useContext(AuthContext);
