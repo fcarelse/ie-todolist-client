@@ -2,6 +2,13 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "_moduleAliases": {
+    "@themes": "dist/themes",
+    "@components": "dist/components",
+    "@service": "dist/service",
+    "@pages": "dist/pages",
+    "@context": "dist/context"
+  },
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
@@ -17,6 +24,7 @@
     "@types/react-dom": "^18.2.17",
     "cypress": "^13.6.1",
     "jest": "^29.5.11",
+    "module-alias": "^2.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.0",
