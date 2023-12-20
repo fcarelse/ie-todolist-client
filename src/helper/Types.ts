@@ -17,3 +17,15 @@ export type FetchParamaters = {
   method: FetchMethods;
   token: string;
 };
+
+export type SuccessResponse = {
+  success: number;
+  message: string;
+};
+
+export type ErrorResponse = {
+  error: number;
+  message: string;
+};
+
+export type DataResponse = SuccessResponse | ErrorResponse;

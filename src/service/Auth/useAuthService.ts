@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { fetchData } from "../../helper/Fetch/FetchHelper";
-import { LoginHandler } from "../../helper/Types";
+import { ErrorResponse, LoginHandler } from "../../helper/Types";
 
 export type Credentials = {
   username: string;
@@ -8,7 +8,9 @@ export type Credentials = {
 };
 
 export const useAuthService = () => {
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState<string>("");
+  const [loading, setLoading] = useState<Boolean>(false);
+  const [error, setError] = useState<ErrorResponse>({ error: 0, message: "" });
 
   const login: LoginHandler = async ({ username, password }: Credentials) => {
     try {
