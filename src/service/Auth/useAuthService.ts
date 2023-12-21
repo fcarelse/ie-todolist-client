@@ -29,19 +29,10 @@ export const useAuthService = () => {
       return data;
     } catch (e: any) {
       setIsLoading(false);
-      if (e instanceof FetchError) {
-        setError({
-          error: e.status,
-          message: e?.message || "Login Error",
-        });
-      } else if (e instanceof Error) {
-        setError({
-          error: 500,
-          message: e?.message || "Login Error",
-        });
-      } else {
-        setError({ error: 500, message: "Login Error" });
-      }
+      setError({
+        error: e?.status || 500,
+        message: e?.message || "Login Error",
+      });
       console.log("could not login");
     }
     return { token: "" };
