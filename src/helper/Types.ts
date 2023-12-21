@@ -29,3 +29,8 @@ export type ErrorResponse = {
 };
 
 export type DataResponse = SuccessResponse | ErrorResponse;
+
+export type FetchHeadersType = {
+  "Content-Type"?: string;
+  Authorization?: string;
+};

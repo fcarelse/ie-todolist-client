@@ -5,8 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuthContext } from "../../context/Auth/AuthContext";
+import { Link } from "react-router-dom";
 import { useAuthService } from "../../service/Auth/useAuthService";
 
 const navItems = {
@@ -22,7 +21,6 @@ const navItems = {
 };
 
 export const NavbarComp = () => {
-  // const navigate = useNavigate();
   const navigate = (a: string) => {}; // Placeholder
   const { token, isLoading } = useAuthService();
 

@@ -1,4 +1,4 @@
-import { FetchParamaters } from "../Types";
+import { FetchHeadersType, FetchParamaters } from "../Types";
 
 export class FetchError extends Error {
   status: number = 0;
@@ -19,15 +19,17 @@ export const fetchData = async (
 ) => {
   // Default options are marked with *
   try {
+    const headers: FetchHeadersType = {
+      "Content-Type": "application/json; charset=utf-8",
+    };
+    if (token) headers.Authorization = `Bearer ${token}`;
+
     const res = await fetch(url, {
       method: method, // *GET, POST, PUT, DELETE, etc.
       mode: "cors", // no-cors, cors, *same-origin
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
       // credentials: "same-origin", // include, *same-origin, omit
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        Authorization: `Bearer ${token}`,
-      },
+      headers,
       // redirect: "follow", // manual, *follow, error
       // referrer: "no-referrer", // no-referrer, *client
       body: JSON.stringify(data), // body data type must match "Content-Type" header
