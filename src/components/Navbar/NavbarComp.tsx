@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { useAuthService } from "../../service/Auth/useAuthService";
+import { useNavigateContext } from "../../context/Navigate/NavigateContext";
 
 const navItems = {
   guest: [
@@ -21,7 +22,7 @@ const navItems = {
 };
 
 export const NavbarComp = () => {
-  const navigate = (a: string) => {}; // Placeholder
+  const { navigate } = useNavigateContext();
   const { token, isLoading } = useAuthService();
 
   const NavOptions = React.useMemo(

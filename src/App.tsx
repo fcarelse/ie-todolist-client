@@ -4,22 +4,23 @@ import { AboutPage } from "./pages/About/AboutPage";
 import { LoginPage } from "./pages/Login/LoginPage";
 import { TodolistPage } from "./pages/Todolist/TodolistPage";
 import { NavbarComp } from "./components/Navbar/NavbarComp";
-import { useAuthService } from "./service/Auth/useAuthService";
+import { Navigation } from "./components/Navigation/NavigationComp";
+import "./App.css";
 
 function App() {
-  const { token } = useAuthService();
-
   return (
     <BrowserRouter>
-      <NavbarComp />
-      <Routes>
-        <Route path="/">
-          <Route path="about" element={<AboutPage />} />
-          <Route path="todolist" element={<TodolistPage />} />
-          <Route path="login" element={<LoginPage />} />
-          <Route path="" element={<Navigate to="/about" />} />
-        </Route>
-      </Routes>
+      <Navigation>
+        <NavbarComp />
+        <Routes>
+          <Route path="/">
+            <Route path="about" element={<AboutPage />} />
+            <Route path="todolist" element={<TodolistPage />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="" element={<Navigate to="/about" />} />
+          </Route>
+        </Routes>
+      </Navigation>
     </BrowserRouter>
   );
 }

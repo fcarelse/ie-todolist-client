@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { FetchError, fetchData } from "../../helper/Fetch/FetchHelper";
-import { ErrorResponse, LoginHandlerType } from "../../helper/Types";
+import { fetchData } from "../../helper/Fetch/FetchHelper";
+import { ErrorResponse } from "../../helper/Fetch/FetchHelper.types";
+import { LoginHandlerType } from "./useAuthService.types";
 
 export type Credentials = {
   username: string;

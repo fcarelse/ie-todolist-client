@@ -1,4 +1,9 @@
-import React, { FormEvent, FormEventHandler, useState } from "react";
+import React, {
+  FormEvent,
+  FormEventHandler,
+  MouseEvent,
+  useState,
+} from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,9 +16,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { ThemeProvider } from "@mui/material/styles";
 import { defaultTheme } from "../../themes/Default/DefaultTheme";
-import { Credentials } from "../../helper/Types";
 import { Copyright } from "../../components/Copyright/CopyrightComp";
-import { useAuthService } from "../../service/Auth/useAuthService";
+import { Credentials, useAuthService } from "../../service/Auth/useAuthService";
 
 export const LoginPage = ({}) => {
   const { login } = useAuthService();
@@ -21,9 +25,7 @@ export const LoginPage = ({}) => {
   const [password, setPassword] = useState("");
   const credentials: Credentials = { username, password };
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = async (
-    event: FormEvent
-  ) => {
+  const handleSubmit = async (event: MouseEvent) => {
     event.preventDefault();
     login(credentials);
   };
@@ -44,46 +46,45 @@ export const LoginPage = ({}) => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Log In
+            Log In Page
           </Typography>
-          <form onSubmit={handleSubmit}>
-            <Box component="form" noValidate sx={{ mt: 1 }}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                onChange={(event) => setUsername(event.target.value || "")}
-                autoComplete="email"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                onChange={(event) => setPassword(event.target.value || "")}
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Log In
-              </Button>
-            </Box>
-          </form>
+          <Box component="form" noValidate sx={{ mt: 1 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              onChange={(event) => setUsername(event.target.value || "")}
+              autoComplete="email"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              onChange={(event) => setPassword(event.target.value || "")}
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              onClick={(event) => handleSubmit(event)}
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Log In
+            </Button>
+          </Box>
         </Box>
         <Copyright />
       </Container>
