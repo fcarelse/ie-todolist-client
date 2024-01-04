@@ -13,10 +13,10 @@ describe("FetchHelper", () => {
 
     const res = await fetchData({
       url: "/login",
-      data: {},
+      data: "",
       method: "post",
       token: "",
-      mock: true,
+      fetcher: fetchMock,
     });
 
     expect(res).toBeInstanceOf(Object);

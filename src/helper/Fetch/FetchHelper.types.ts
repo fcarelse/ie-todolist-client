@@ -2,10 +2,10 @@ export type FetchMethods = "post" | "get" | "put" | "delete";
 
 export type FetchParamaters = {
   url: string;
-  data: object;
+  data: string;
   method: FetchMethods;
   token?: string;
-  mock?: boolean;
+  fetcher?: any;
 };
 
 export type SuccessResponse = {

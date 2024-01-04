@@ -1,14 +1,12 @@
 import { FetchHeadersType, FetchParamaters } from "./FetchHelper.types";
 import { FetchError } from "./FetchError";
-import fetchMock from "jest-fetch-mock";
 
 export const fetchData = async (
-  { url, data, method, token, mock }: FetchParamaters = {
+  { url, data, method, token, fetcher }: FetchParamaters = {
     url: "",
-    data: {},
+    data: "",
     method: "post",
     token: "",
-    mock: false,
   }
 ) => {
   // Default options are marked with *
@@ -17,10 +15,11 @@ export const fetchData = async (
       "Content-Type": "application/json; charset=utf-8",
     };
     if (token) headers.Authorization = `Bearer ${token}`;
-    const fetcher = !mock ? fetch : fetchMock;
+    const mock = !!fetcher;
+    fetcher = fetcher || fetch;
 
     const res = await fetcher(
-      new URL(url, "http://localhost:3300/").toString(),
+      mock ? new URL(url, "http://localhost:3300/").toString() : url,
       {
         method: method, // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, cors, *same-origin

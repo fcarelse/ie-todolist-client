@@ -21,9 +21,9 @@ import { Credentials, useAuthService } from "../../service/Auth/useAuthService";
 
 export const LoginPage = ({}) => {
   const { login } = useAuthService();
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const credentials: Credentials = { username, password };
+  const credentials: Credentials = { email, password };
 
   const handleSubmit = async (event: MouseEvent) => {
     event.preventDefault();
@@ -56,7 +56,7 @@ export const LoginPage = ({}) => {
               id="email"
               label="Email Address"
               name="email"
-              onChange={(event) => setUsername(event.target.value || "")}
+              onChange={(event) => setEmail(event.target.value || "")}
               autoComplete="email"
               autoFocus
             />
