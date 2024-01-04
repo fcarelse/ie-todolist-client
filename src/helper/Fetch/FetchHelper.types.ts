@@ -1,21 +1,11 @@
 export type FetchMethods = "post" | "get" | "put" | "delete";
 
-export type TokenSetter = (token: string) => {};
-
-export type Credentials = { username: string; password: string };
-
-export type LoginHandler = ({
-  username,
-  password,
-}: Credentials) => Promise<{ token: string }>;
-
-export type AuthContextValue = { token: string };
-
 export type FetchParamaters = {
   url: string;
-  data: object;
+  data: string;
   method: FetchMethods;
-  token: string;
+  token?: string;
+  fetcher?: any;
 };
 
 export type SuccessResponse = {
@@ -29,3 +19,8 @@ export type ErrorResponse = {
 };
 
 export type DataResponse = SuccessResponse | ErrorResponse;
+
+export type FetchHeadersType = {
+  "Content-Type"?: string;
+  Authorization?: string;
+};

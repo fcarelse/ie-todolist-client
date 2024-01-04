@@ -4,16 +4,13 @@ import { AboutPage } from "./pages/About/AboutPage";
 import { LoginPage } from "./pages/Login/LoginPage";
 import { TodolistPage } from "./pages/Todolist/TodolistPage";
 import { NavbarComp } from "./components/Navbar/NavbarComp";
-import { AuthContext } from "./context/Auth/AuthContext";
-import { useAuthService } from "./service/Auth/useAuthService";
-import { AuthContextValue } from "./helper/Types";
+import { Navigation } from "./components/Navigation/NavigationComp";
+import "./App.css";
 
 function App() {
-  const { token } = useAuthService();
-
   return (
-    <AuthContext.Provider value={{ token }}>
-      <BrowserRouter>
+    <BrowserRouter>
+      <Navigation>
         <NavbarComp />
         <Routes>
           <Route path="/">
@@ -23,8 +20,8 @@ function App() {
             <Route path="" element={<Navigate to="/about" />} />
           </Route>
         </Routes>
-      </BrowserRouter>
-    </AuthContext.Provider>
+      </Navigation>
+    </BrowserRouter>
   );
 }
 

@@ -1,48 +1,41 @@
 import { useState } from "react";
-import { FetchError, fetchData } from "../../helper/Fetch/FetchHelper";
-import { ErrorResponse, LoginHandler } from "../../helper/Types";
+import { fetchData } from "../../helper/Fetch/FetchHelper";
+import { ErrorResponse } from "../../helper/Fetch/FetchHelper.types";
+import { LoginHandlerType } from "./useAuthService.types";
 
 export type Credentials = {
-  username: string;
+  email: string;
   password: string;
 };
 
 export const useAuthService = () => {
   const [token, setToken] = useState<string>("");
-  const [loading, setLoading] = useState<Boolean>(false);
+  const [isLoading, setIsLoading] = useState<Boolean>(false);
   const [error, setError] = useState<ErrorResponse>({ error: 0, message: "" });
 
-  const login: LoginHandler = async ({ username, password }: Credentials) => {
+  const login: LoginHandlerType = async (credentials: Credentials) => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       const data: { token: string } = await fetchData({
-        url: "/user/login",
-        data: { username, password },
+        url: "/api/user/login",
+        data: JSON.stringify(credentials),
         method: "post",
         token: "",
       });
-      setLoading(false);
+      setIsLoading(false);
       setToken(data.token);
       return data;
     } catch (e: any) {
-      setLoading(false);
-      if (e instanceof FetchError) {
-        setError({
-          error: e.status,
-          message: e?.message || "Login Error",
-        });
-      } else if (e instanceof Error) {
-        setError({
-          error: 500,
-          message: e?.message || "Login Error",
-        });
-      } else {
-        setError({ error: 500, message: "Login Error" });
-      }
+      setIsLoading(false);
+      setError({
+        error: e?.status || 500,
+        message: e?.message || "Login Error",
+      });
+      console.log(e?.message);
       console.log("could not login");
     }
     return { token: "" };
   };
 
-  return { login, token, loading, error };
+  return { login, token, isLoading, error };
 };

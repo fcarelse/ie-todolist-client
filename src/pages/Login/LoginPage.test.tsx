@@ -6,6 +6,6 @@ import { test, expect } from "@jest/globals";
 
 test("Is Functional Component", () => {
   render(<LoginPage />);
-  const el = screen.getByText(/Login Page/i);
+  const el = screen.getByText(/Log In Page/i);
   expect(el).toBeInTheDocument();
 });
