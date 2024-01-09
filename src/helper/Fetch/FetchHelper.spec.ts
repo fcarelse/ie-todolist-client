@@ -13,7 +13,7 @@ describe("FetchHelper", () => {
 
     const res = await fetchData({
       url: "/login",
-      data: "",
+      data: {},
       method: "post",
       token: "",
       fetcher: fetchMock,

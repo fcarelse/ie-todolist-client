@@ -4,8 +4,8 @@ import { FetchError } from "./FetchError";
 export const fetchData = async (
   { url, data, method, token, fetcher }: FetchParamaters = {
     url: "",
-    data: "",
-    method: "post",
+    data: {},
+    method: "get",
     token: "",
   }
 ) => {
