@@ -7,6 +7,7 @@ import { TodolistPage } from "./pages/Todolist/TodolistPage";
 import { NavbarComp } from "./components/Navbar/NavbarComp";
 import { Navigation } from "./components/Navigation/NavigationComp";
 import "./App.css";
+import { useAuthService } from "./service/Auth/useAuthService";
 
 function App() {
   return (

@@ -24,7 +24,8 @@ const navItems = {
 
 export const NavbarComp = () => {
   const { navigate } = useNavigateContext();
-  const { token, isLoading } = useAuthService();
+  const { getToken, isLoading } = useAuthService();
+  const token = getToken();
 
   const NavOptions = React.useMemo(
     () => () =>

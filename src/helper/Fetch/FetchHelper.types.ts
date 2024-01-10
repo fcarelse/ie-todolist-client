@@ -4,8 +4,8 @@ export type FetchParamaters = {
   url: string;
   data?: object;
   method?: FetchMethods;
-  token?: string;
   fetcher?: any;
+  token?: string;
 };
 
 export type SuccessResponse = {

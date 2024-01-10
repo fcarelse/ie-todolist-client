@@ -5,7 +5,7 @@ import { useAuthService } from "../../service/Auth/useAuthService";
 
 export const AboutPage = ({}) => {
   const [message, setMessage] = useState("");
-  const { token } = useAuthService();
+  const { getToken } = useAuthService();
 
   const getHello = async () => {
     const res = await fetch("/api/rest/hello");
@@ -18,7 +18,7 @@ export const AboutPage = ({}) => {
       <Button onClick={getHello}>Hello</Button>
       <Button onClick={() => setMessage("")}>Bye</Button>
       <p>Message: {message}</p>
-      {!token ? "" : <p>Token: {token}</p>}
+      <p>Token: {getToken()}</p>
     </div>
   );
 };

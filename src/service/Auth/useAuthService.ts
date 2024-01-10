@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { fetchData } from "../../helper/Fetch/FetchHelper";
+import { fetchData, getToken, setToken } from "../../helper/Fetch/FetchHelper";
 import { ErrorResponse } from "../../helper/Fetch/FetchHelper.types";
 import { Credentials, LoginHandlerType } from "./useAuthService.types";
 
 export const useAuthService = () => {
-  const [token, setToken] = useState("");
   const [isLoading, setIsLoading] = useState<Boolean>(false);
   const [error, setError] = useState<ErrorResponse>({ error: 0, message: "" });
 
@@ -15,7 +14,7 @@ export const useAuthService = () => {
         url: "/api/user/login",
         data: credentials,
         method: "post",
-        token: "",
+        token: getToken(),
       });
       // setIsLoading(false);
       setToken(resData.token);
@@ -33,16 +32,17 @@ export const useAuthService = () => {
     return false;
   };
 
-  const logout = async (manualToken?: string) => {
+  const logout = async () => {
     try {
       setIsLoading(true);
       const resData = await fetchData({
         url: "/api/user/logout",
-        data: { token: manualToken || token },
+        data: { token: getToken() },
         method: "post",
-        token: manualToken || token || "",
+        token: getToken(),
       });
       setIsLoading(false);
+      setToken("");
       return resData instanceof Object ? !!resData.success : false;
     } catch (e: any) {
       setIsLoading(false);
@@ -56,5 +56,5 @@ export const useAuthService = () => {
     }
   };
 
-  return { login, logout, token, setToken, isLoading, error };
+  return { login, logout, getToken, setToken, isLoading, error };
 };

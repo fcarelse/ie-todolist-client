@@ -1,12 +1,15 @@
 import { FetchHeadersType, FetchParamaters } from "./FetchHelper.types";
 import { FetchError } from "./FetchError";
 
+let token = "";
+export const getToken = () => (!!token ? token.toString() || "" : "");
+export const setToken = (newToken: string) => (token = newToken);
+
 export const fetchData = async (
-  { url, data, method, token, fetcher }: FetchParamaters = {
+  { url, data, method, fetcher }: FetchParamaters = {
     url: "",
     data: {},
     method: "get",
-    token: "",
   }
 ) => {
   // Default options are marked with *

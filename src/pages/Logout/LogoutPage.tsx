@@ -13,11 +13,11 @@ import { Copyright } from "../../components/Copyright/CopyrightComp";
 import { useAuthService } from "../../service/Auth/useAuthService";
 
 export const LogoutPage = ({}) => {
-  let { logout, token, setToken } = useAuthService();
+  let { logout, setToken } = useAuthService();
 
   const handleSubmit = async (event: MouseEvent) => {
     event.preventDefault();
-    logout(token);
+    logout();
   };
 
   return (
