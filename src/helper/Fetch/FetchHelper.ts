@@ -1,9 +1,9 @@
 import { FetchHeadersType, FetchParamaters } from "./FetchHelper.types";
 import { FetchError } from "./FetchError";
 
-let token = "";
-export const getToken = () => (!!token ? token.toString() || "" : "");
-export const setToken = (newToken: string) => (token = newToken);
+export const getToken = () => window.localStorage.getItem("token") || "";
+export const setToken = (newToken: string) =>
+  window.localStorage.setItem("token", newToken);
 
 export const fetchData = async (
   { url, data, method, fetcher }: FetchParamaters = {
@@ -17,7 +17,7 @@ export const fetchData = async (
     const headers: FetchHeadersType = {
       "Content-Type": "application/json; charset=utf-8",
     };
-    if (token) headers.Authorization = `Bearer ${token}`;
+    if (getToken()) headers.Authorization = `Bearer ${getToken()}`;
     const mock = !!fetcher;
     fetcher = fetcher || fetch;
 
