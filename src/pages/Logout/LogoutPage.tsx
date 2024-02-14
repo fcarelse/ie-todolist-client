@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState } from "react";
+import { MouseEvent } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,9 +11,10 @@ import { ThemeProvider } from "@mui/material/styles";
 import { defaultTheme } from "../../themes/Default/DefaultTheme";
 import { Copyright } from "../../components/Copyright/CopyrightComp";
 import { useAuthService } from "../../service/Auth/useAuthService";
+import { getToken, setToken } from "../../helper/Fetch/FetchHelper";
 
 export const LogoutPage = ({}) => {
-  let { logout, setToken } = useAuthService();
+  let { logout } = useAuthService();
 
   const handleSubmit = async (event: MouseEvent) => {
     event.preventDefault();
@@ -48,6 +49,7 @@ export const LogoutPage = ({}) => {
               label="Token"
               type="text"
               id="token"
+              defaultValue={getToken()}
             />
             <Button
               type="submit"

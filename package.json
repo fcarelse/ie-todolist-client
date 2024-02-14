@@ -35,8 +35,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "prestart": "bash -c \"cp public/.htaccess.webdev public/.htaccess\"",
     "start": "react-scripts start",
+    "prebuild": "bash -c \"cp public/.htaccess.demo public/.htaccess\"",
     "build": "react-scripts build",
+    "postbuild": "bash -c \"rm -rf stage\" && mkdir stage && bash -c \"cp -R build/* stage\" && bash -c \"cp public/.htaccess.demo stage/.htaccess\"",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "e2e": "cypress open"

@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { useAuthService } from "../../service/Auth/useAuthService";
 import { useNavigateContext } from "../../context/Navigate/NavigateContext";
+import { getToken } from "../../helper/Fetch/FetchHelper";
 
 const navItems = {
   guest: [
@@ -24,7 +25,7 @@ const navItems = {
 
 export const NavbarComp = () => {
   const { navigate } = useNavigateContext();
-  const { getToken, isLoading } = useAuthService();
+  const { isLoading } = useAuthService();
   const token = getToken();
 
   const NavOptions = React.useMemo(

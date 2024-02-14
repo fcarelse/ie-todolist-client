@@ -1,11 +1,9 @@
-import React, { useState } from "react";
-import { fetchData } from "../../helper/Fetch/FetchHelper";
+import { useState } from "react";
+import { getToken } from "../../helper/Fetch/FetchHelper";
 import Button from "@mui/material/Button";
-import { useAuthService } from "../../service/Auth/useAuthService";
 
 export const AboutPage = ({}) => {
   const [message, setMessage] = useState("");
-  const { getToken } = useAuthService();
 
   const getHello = async () => {
     const res = await fetch("/api/rest/hello");

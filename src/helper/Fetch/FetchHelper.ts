@@ -22,7 +22,8 @@ export const fetchData = async (
     fetcher = fetcher || fetch;
 
     const res = await fetcher(
-      mock ? new URL(url, "http://localhost:3300/").toString() : url,
+      // mock ? new URL(url, "http://localhost:3300/").toString() :
+      url,
       {
         method: method, // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, cors, *same-origin
