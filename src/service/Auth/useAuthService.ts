@@ -33,7 +33,6 @@ export const useAuthService = () => {
         url: URL_LOGIN,
         data: credentials,
         method: "post",
-        token: getToken(),
       });
       // setIsLoading(false);
       setToken(resData.token);
@@ -59,7 +58,6 @@ export const useAuthService = () => {
         url: URL_LOGOUT,
         data: { token: getToken() },
         method: "post",
-        token: getToken(),
       });
       setIsLoading(false);
       const success = resData instanceof Object ? !!resData.success : false;

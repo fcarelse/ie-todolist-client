@@ -5,7 +5,6 @@ export type FetchParamaters = {
   data?: any;
   method?: FetchMethods;
   fetcher?: any;
-  token?: string;
 };
 
 export type SuccessResponse = {
