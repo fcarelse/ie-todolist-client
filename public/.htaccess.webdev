@@ -1,7 +1,9 @@
 RewriteEngine On
 
-RewriteRule ^index.html$ http://host.docker.internal:3000/ [NE,NC,P,L,QSA]
+#RewriteRule ^index.html$ http://host.docker.internal:3000/ [NE,NC,P,L,QSA]
 
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^.]+)$ http://host.docker.internal:3000/#/$1 [NE,NC,P,L,QSA]
+
+RewriteRule ^(.+)$ http://host.docker.internal:3000/$1 [NE,NC,P,L,QSA]
