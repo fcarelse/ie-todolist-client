@@ -1,14 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchData, getToken, setToken } from "../../helper/Fetch/FetchHelper";
 import { ErrorResponse } from "../../helper/Fetch/FetchHelper.types";
 import { Credentials, LoginHandlerType } from "./useAuthService.types";
 import { useNavigate } from "react-router-dom";
-import { URL_LOGIN, URL_LOGOUT } from "../../helper/Constants/Constants";
+import {
+  URL_LOGGEDIN,
+  URL_LOGIN,
+  URL_LOGOUT,
+} from "../../helper/Constants/Constants";
 
 export const useAuthService = () => {
   const [isLoading, setIsLoading] = useState<Boolean>(false);
   const [error, setError] = useState<ErrorResponse>({ error: 0, message: "" });
   const navigate = useNavigate();
+  const token = getToken();
+
+  useEffect(() => {
+    fetchData({ url: URL_LOGGEDIN })
+      .then((loggedin: boolean) => {
+        if (!loggedin) setToken("");
+      })
+      .catch((e: any) => {
+        setToken("");
+      });
+    return () => {};
+  }, [token]);
 
   const login: LoginHandlerType = async (credentials: Credentials) => {
     try {
@@ -51,6 +67,7 @@ export const useAuthService = () => {
       navigate("/");
       return success;
     } catch (e: any) {
+      if (e?.status == 403) setToken("");
       setIsLoading(false);
       setError({
         error: e?.status || 500,

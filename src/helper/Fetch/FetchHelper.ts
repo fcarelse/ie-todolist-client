@@ -34,7 +34,11 @@ export const fetchData = async (
         // referrer: "no-referrer", // no-referrer, *client
         body: JSON.stringify(data), // body data type must match "Content-Type" header
       }
-    );
+    ).catch((e: any) => {
+      setToken("");
+    });
+    console.log(res);
+    if (res.status === 403) setToken("");
     return await res.json();
   } catch (e: any) {
     throw new FetchError(e.message || "Fetch Error", e?.status || 500);
