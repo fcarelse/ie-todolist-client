@@ -12,6 +12,7 @@ import { defaultTheme } from "../../themes/Default/DefaultTheme";
 import { Copyright } from "../../components/Copyright/CopyrightComp";
 import { useAuthService } from "../../service/Auth/useAuthService";
 import { getToken, setToken } from "../../helper/Fetch/FetchHelper";
+import { Navigate } from "react-router-dom";
 
 export const LogoutPage = ({}) => {
   let { logout } = useAuthService();
@@ -23,6 +24,7 @@ export const LogoutPage = ({}) => {
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      {getToken() ? "" : <Navigate to="/" />}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

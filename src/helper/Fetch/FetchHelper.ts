@@ -18,23 +18,18 @@ export const fetchData = async (
       "Content-Type": "application/json; charset=utf-8",
     };
     if (getToken()) headers.Authorization = `Bearer ${getToken()}`;
-    const mock = !!fetcher;
     fetcher = fetcher || fetch;
 
-    const res = await fetcher(
-      // mock ? new URL(url, "http://localhost:3300/").toString() :
-      url,
-      {
-        method: method, // *GET, POST, PUT, DELETE, etc.
-        mode: "cors", // no-cors, cors, *same-origin
-        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-        // credentials: "same-origin", // include, *same-origin, omit
-        headers,
-        // redirect: "follow", // manual, *follow, error
-        // referrer: "no-referrer", // no-referrer, *client
-        body: JSON.stringify(data), // body data type must match "Content-Type" header
-      }
-    ).catch((e: any) => {
+    const res = await fetcher(url, {
+      method: method, // *GET, POST, PUT, DELETE, etc.
+      mode: "cors", // no-cors, cors, *same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      // credentials: "same-origin", // include, *same-origin, omit
+      headers,
+      // redirect: "follow", // manual, *follow, error
+      // referrer: "no-referrer", // no-referrer, *client
+      body: JSON.stringify(data), // body data type must match "Content-Type" header
+    }).catch((e: any) => {
       setToken("");
     });
     console.log(res);

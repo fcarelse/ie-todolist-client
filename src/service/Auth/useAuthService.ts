@@ -9,9 +9,12 @@ import {
   URL_LOGOUT,
 } from "../../helper/Constants/Constants";
 
-export const useAuthService = () => {
+export const useAuthService = (fetcher?: any) => {
   const [isLoading, setIsLoading] = useState<Boolean>(false);
-  const [error, setError] = useState<ErrorResponse>({ error: 0, message: "" });
+  const [authError, setAuthError] = useState<ErrorResponse>({
+    error: 0,
+    message: "",
+  });
   const navigate = useNavigate();
   const token = getToken();
 
@@ -33,6 +36,7 @@ export const useAuthService = () => {
         url: URL_LOGIN,
         data: credentials,
         method: "post",
+        fetcher,
       });
       // setIsLoading(false);
       setToken(resData.token);
@@ -41,7 +45,7 @@ export const useAuthService = () => {
       return true;
     } catch (e: any) {
       setIsLoading(false);
-      setError({
+      setAuthError({
         error: e?.status || 500,
         message: e?.message || "Login Error",
       });
@@ -58,6 +62,7 @@ export const useAuthService = () => {
         url: URL_LOGOUT,
         data: { token: getToken() },
         method: "post",
+        fetcher,
       });
       setIsLoading(false);
       const success = resData instanceof Object ? !!resData.success : false;
@@ -67,7 +72,7 @@ export const useAuthService = () => {
     } catch (e: any) {
       if (e?.status == 403) setToken("");
       setIsLoading(false);
-      setError({
+      setAuthError({
         error: e?.status || 500,
         message: e?.message || "Logout Error",
       });
@@ -77,5 +82,5 @@ export const useAuthService = () => {
     }
   };
 
-  return { login, logout, isLoading, error };
+  return { login, logout, isLoading, authError };
 };

@@ -14,6 +14,8 @@ import { defaultTheme } from "../../themes/Default/DefaultTheme";
 import { Copyright } from "../../components/Copyright/CopyrightComp";
 import { useAuthService } from "../../service/Auth/useAuthService";
 import { Credentials } from "../../service/Auth/useAuthService.types";
+import { getToken } from "../../helper/Fetch/FetchHelper";
+import { Navigate } from "react-router-dom";
 
 export const LoginPage = ({}) => {
   const { login } = useAuthService();
@@ -28,6 +30,7 @@ export const LoginPage = ({}) => {
 
   return (
     <ThemeProvider theme={defaultTheme}>
+      {getToken() ? <Navigate to="/" /> : ""}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
