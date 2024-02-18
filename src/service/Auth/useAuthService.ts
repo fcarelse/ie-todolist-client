@@ -4,6 +4,7 @@ import { ErrorResponse } from "../../helper/Fetch/FetchHelper.types";
 import { Credentials, LoginHandlerType } from "./useAuthService.types";
 import { useNavigate } from "react-router-dom";
 import {
+  TOKEN_BLANK,
   URL_LOGGEDIN,
   URL_LOGIN,
   URL_LOGOUT,
@@ -31,18 +32,18 @@ export const useAuthService = (fetcher?: any) => {
 
   const login: LoginHandlerType = async (credentials: Credentials) => {
     try {
-      // setIsLoading(true);
+      setIsLoading(true);
       const resData = await fetchData({
         url: URL_LOGIN,
         data: credentials,
         method: "post",
         fetcher,
       });
-      // setIsLoading(false);
+      setIsLoading(false);
       setToken(resData.token);
       console.log(`Token: ${resData.token}`);
-      navigate("/");
-      return true;
+      navigate("/todolist");
+      return resData.token;
     } catch (e: any) {
       setIsLoading(false);
       setAuthError({
@@ -52,7 +53,7 @@ export const useAuthService = (fetcher?: any) => {
       console.log(e?.message);
       console.log("could not login");
     }
-    return false;
+    return TOKEN_BLANK;
   };
 
   const logout = async () => {
@@ -66,11 +67,11 @@ export const useAuthService = (fetcher?: any) => {
       });
       setIsLoading(false);
       const success = resData instanceof Object ? !!resData.success : false;
-      if (success) setToken("");
+      if (success) setToken(TOKEN_BLANK);
       navigate("/");
       return success;
     } catch (e: any) {
-      if (e?.status == 403) setToken("");
+      if (e?.status == 403) setToken(TOKEN_BLANK);
       setIsLoading(false);
       setAuthError({
         error: e?.status || 500,

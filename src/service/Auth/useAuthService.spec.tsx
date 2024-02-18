@@ -1,23 +1,35 @@
 import fetchMock from "jest-fetch-mock";
 import { render, screen } from "@testing-library/react";
 import { useAuthService } from "./useAuthService";
-import { Route, Router } from "react-router-dom";
+import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
 import { createMemoryHistory } from "history";
+import { getToken, setToken } from "../../helper/Fetch/FetchHelper";
+import { act } from "react-dom/test-utils";
+import { TOKEN_BLANK } from "../../helper/Constants/Constants";
 
 const MOCK_TOKEN = "MockToken";
 
 const TestComponent = () => {
   const { login } = useAuthService(fetchMock);
 
-  const triggerLogin = () => {
-    login({ email: "test", password: "test" });
+  const triggerLogin = async () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ token: MOCK_TOKEN }));
+    const newToken = await login({ email: "test", password: "test" });
+
+    if (newToken && newToken !== TOKEN_BLANK) setToken(newToken);
+
+    // setToken(MOCK_TOKEN);
   };
 
   return (
     <div>
-      <button onClick={triggerLogin}>Go to Dashboard</button>
+      <button onClick={triggerLogin}>Login</button>
     </div>
   );
+};
+
+const TestTodolist = () => {
+  return <div data-testid="todolist">Todolist</div>;
 };
 
 describe("useAuthService", () => {
@@ -25,27 +37,28 @@ describe("useAuthService", () => {
     fetchMock.resetMocks();
   });
 
-  test.skip("should return login function", () => {
-    const history = createMemoryHistory();
-
+  test("should return login function", async () => {
     render(
-      // @ts-ignore
-      <Router history={history}>
-        <Route path="/todolist">
-          <div data-testid="todolist">Todolist</div>
-        </Route>
-        <Route path="/">
-          <TestComponent></TestComponent>
-        </Route>
-      </Router>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/">
+            <Route index element={<TestComponent></TestComponent>}></Route>
+            <Route path="todolist" element={<TestTodolist />}></Route>
+          </Route>
+        </Routes>
+      </BrowserRouter>
     );
 
-    fetchMock.mockResponseOnce(JSON.stringify({ token: MOCK_TOKEN }));
-
     const loginButton = screen.getByRole("button");
-    loginButton.click();
+    expect(loginButton).toBeInTheDocument();
+    await act(async () => {
+      await loginButton.click();
+    });
 
-    const todolist = screen.getByTestId("todolist");
-    expect(todolist).toBeInTheDocument();
+    const token = getToken();
+    expect(token).toBe(MOCK_TOKEN);
+
+    // const todolist = screen.getByTestId("todolist");
+    // expect(todolist).toBeInTheDocument();
   });
 });

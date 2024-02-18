@@ -1,4 +1,4 @@
-import { MouseEvent } from "react";
+import { MouseEvent, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,59 +13,13 @@ import { Copyright } from "../../components/Copyright/CopyrightComp";
 import { useAuthService } from "../../service/Auth/useAuthService";
 import { getToken, setToken } from "../../helper/Fetch/FetchHelper";
 import { Navigate } from "react-router-dom";
+import { TOKEN_BLANK } from "../../helper/Constants/Constants";
 
 export const LogoutPage = ({}) => {
-  let { logout } = useAuthService();
+  const token = getToken();
+  useEffect(() => {
+    setToken(TOKEN_BLANK);
+  }, [token]);
 
-  const handleSubmit = async (event: MouseEvent) => {
-    event.preventDefault();
-    logout();
-  };
-
-  return (
-    <ThemeProvider theme={defaultTheme}>
-      {getToken() ? "" : <Navigate to="/" />}
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Log Out Page
-          </Typography>
-          <Box component="form" noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              onChange={(event) => setToken(event.target.value || "")}
-              name="token"
-              label="Token"
-              type="text"
-              id="token"
-              defaultValue={getToken()}
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              onClick={(event) => handleSubmit(event)}
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Log Out
-            </Button>
-          </Box>
-        </Box>
-        <Copyright />
-      </Container>
-    </ThemeProvider>
-  );
+  return <Navigate to="/" />;
 };

@@ -1,9 +1,9 @@
 import { FetchHeadersType, FetchParamaters } from "./FetchHelper.types";
 import { FetchError } from "./FetchError";
 
-export const getToken = () => window.localStorage.getItem("token") || "";
+export const getToken = () => localStorage.getItem("token") || "";
 export const setToken = (newToken: string) =>
-  window.localStorage.setItem("token", newToken);
+  localStorage.setItem("token", newToken);
 
 export const fetchData = async (
   { url, data, method, fetcher }: FetchParamaters = {
@@ -32,7 +32,6 @@ export const fetchData = async (
     }).catch((e: any) => {
       setToken("");
     });
-    console.log(res);
     if (res.status === 403) setToken("");
     return await res.json();
   } catch (e: any) {

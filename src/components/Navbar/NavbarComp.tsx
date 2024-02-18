@@ -14,7 +14,6 @@ const navItems = {
   guest: [
     { label: "About", target: "/about", tag: "about" },
     { label: "LogIn", target: "/login", tag: "login" },
-    { label: "Logout", target: "/logout", tag: "logout" },
   ],
   user: [
     { label: "Todolist", target: "/todolist", tag: "todolist" },
