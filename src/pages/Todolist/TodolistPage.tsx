@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { URL_TODOS } from "../../helper/Constants/Constants";
 import { fetchData } from "../../helper/Fetch/FetchHelper";
 
-export const TodolistPage = ({}) => {
+export const TodolistPage = () => {
   const [todos, setTodos] = useState<Array<Record<string, any>>>([]);
   useEffect(() => {
     (async () => {
@@ -13,9 +13,6 @@ export const TodolistPage = ({}) => {
 
   return (
     <div>
-      <br />
-      <br />
-      <br />
       <h3>Todolist Page</h3>
       <table>
         <tr>
