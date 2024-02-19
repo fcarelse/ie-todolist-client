@@ -3,12 +3,7 @@ import { fetchData, getToken, setToken } from "../../helper/Fetch/FetchHelper";
 import { ErrorResponse } from "../../helper/Fetch/FetchHelper.types";
 import { Credentials, LoginHandlerType } from "./useAuthService.types";
 import { useNavigate } from "react-router-dom";
-import {
-  TOKEN_BLANK,
-  URL_LOGGEDIN,
-  URL_LOGIN,
-  URL_LOGOUT,
-} from "../../helper/Constants/Constants";
+import { TOKEN_BLANK, URLS } from "../../helper/Constants/Constants";
 
 export const useAuthService = (fetcher?: any) => {
   const [isLoading, setIsLoading] = useState<Boolean>(false);
@@ -20,7 +15,7 @@ export const useAuthService = (fetcher?: any) => {
   const token = getToken();
 
   useEffect(() => {
-    fetchData({ url: URL_LOGGEDIN })
+    fetchData({ url: URLS.loggedIn })
       .then((loggedin: boolean) => {
         if (!loggedin) setToken("");
       })
@@ -34,7 +29,7 @@ export const useAuthService = (fetcher?: any) => {
     try {
       setIsLoading(true);
       const resData = await fetchData({
-        url: URL_LOGIN,
+        url: URLS.login,
         data: credentials,
         method: "post",
         fetcher,
@@ -60,7 +55,7 @@ export const useAuthService = (fetcher?: any) => {
     try {
       setIsLoading(true);
       const resData = await fetchData({
-        url: URL_LOGOUT,
+        url: URLS.logout,
         data: { token: getToken() },
         method: "post",
         fetcher,

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { URL_TODOS } from "../../helper/Constants/Constants";
+import { URLS } from "../../helper/Constants/Constants";
 import { fetchData } from "../../helper/Fetch/FetchHelper";
 
 export const TodolistPage = () => {
   const [todos, setTodos] = useState<Array<Record<string, any>>>([]);
   useEffect(() => {
     (async () => {
-      const newTodos = await fetchData({ url: URL_TODOS });
+      const newTodos = await fetchData({ url: URLS.todos });
       if (newTodos && newTodos instanceof Array) setTodos(newTodos);
     })();
   }, []);
