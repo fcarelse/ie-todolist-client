@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { getToken, setToken } from "../../helper/Fetch/FetchHelper";
+import { getToken, setToken } from "../../store/Token/TokenStore";
 import { Navigate } from "react-router-dom";
 import { TOKEN_BLANK } from "../../helper/Constants/Constants";
 

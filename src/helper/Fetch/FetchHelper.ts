@@ -1,9 +1,6 @@
 import { FetchHeadersType, FetchParamaters } from "./FetchHelper.types";
 import { FetchError } from "./FetchError";
-
-export const getToken = () => localStorage.getItem("token") || "";
-export const setToken = (newToken: string) =>
-  localStorage.setItem("token", newToken);
+import { getToken, setToken } from "../../store/Token/TokenStore";
 
 export const fetchData = async (
   { url, data, method, fetcher }: FetchParamaters = {

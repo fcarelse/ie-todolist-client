@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { fetchData, getToken, setToken } from "../../helper/Fetch/FetchHelper";
+import { fetchData } from "../../helper/Fetch/FetchHelper";
+import { getToken, setToken } from "../../store/Token/TokenStore";
 import { ErrorResponse } from "../../helper/Fetch/FetchHelper.types";
 import { Credentials, LoginHandlerType } from "./useAuthService.types";
 import { useNavigate } from "react-router-dom";

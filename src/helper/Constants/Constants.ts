@@ -1,18 +1,27 @@
-export const URL_LOGIN = "/api/user/login";
-export const URL_LOGOUT = "/api/user/logout";
-export const URL_LOGGEDIN = "/api/user/loggedIn";
-
-export const URL_HELLO = "/api/rest/hello";
-export const URL_TODOS = "/api/rest/todos";
-export const URL_TODOLIST = "/api/rest/todolist";
-
 export const TOKEN_BLANK = "";
+export const STORE_TOKEN_ID = "token";
+export const STORE_TODOLIST_ID = "todolist";
+export const STORE_THEME_ID = "theme";
 
 export enum URLS {
-  login = URL_LOGIN,
-  logout = URL_LOGOUT,
-  loggedIn = URL_LOGGEDIN,
-  hello = URL_HELLO,
-  todos = URL_TODOS,
-  todolist = URL_TODOLIST,
+  login = "/api/user/login",
+  logout = "/api/user/logout",
+  loggedIn = "/api/user/loggedIn",
+  hello = "/api/rest/hello",
+  todo = "api/rest/todo",
+  todos = "/api/rest/todos",
+  todolist = "/api/rest/todolist",
 }
+
+export enum THEMES {
+  dark = "dark",
+  light = "light",
+  default = "light",
+}
+
+export const TODO_STATUSES = [
+  { tag: "todo", label: "To do" },
+  { tag: "done", label: "Done" },
+];
+
+export const TODO_STATUSES_TAGS = TODO_STATUSES.map((s) => s.tag);

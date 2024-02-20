@@ -6,17 +6,17 @@ import { TodolistPage } from "./pages/Todolist/TodolistPage";
 import { NavbarComp } from "./components/Navbar/NavbarComp";
 import { Navigation } from "./components/Navigation/NavigationComp";
 import { Box, ThemeProvider } from "@mui/material";
-import { THEMES, getTheme } from "./themes/Current/CurrentTheme";
+import { Themes, useTheme } from "./service/Theme/useTheme";
 import "./App.css";
 
 function App() {
-  const theme = getTheme();
+  const { theme, setTheme } = useTheme();
 
   return (
-    <ThemeProvider theme={THEMES[theme]}>
+    <ThemeProvider theme={Themes[theme]}>
       <BrowserRouter>
         <Navigation>
-          <NavbarComp />
+          <NavbarComp {...{ theme, setTheme }} />
           <Box sx={{ margin: "80px auto", maxWidth: "800px" }}>
             <Routes>
               <Route path="/">

@@ -1,11 +1,10 @@
 import fetchMock from "jest-fetch-mock";
 import { render, screen } from "@testing-library/react";
 import { useAuthService } from "./useAuthService";
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
-import { createMemoryHistory } from "history";
-import { getToken, setToken } from "../../helper/Fetch/FetchHelper";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { act } from "react-dom/test-utils";
 import { TOKEN_BLANK } from "../../helper/Constants/Constants";
+import { getToken, setToken } from "../../store/Token/TokenStore";
 
 const MOCK_TOKEN = "MockToken";
 

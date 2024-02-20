@@ -8,11 +8,10 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { useAuthService } from "../../service/Auth/useAuthService";
 import { useNavigateContext } from "../../context/Navigate/NavigateContext";
-import { getToken } from "../../helper/Fetch/FetchHelper";
+import { getToken } from "../../store/Token/TokenStore";
 import { IconButton } from "@mui/material";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
-import { getTheme, setTheme } from "../../themes/Current/CurrentTheme";
 
 const navItems = {
   guest: [
@@ -26,11 +25,16 @@ const navItems = {
   ],
 };
 
-export const NavbarComp = () => {
+export const NavbarComp = ({
+  theme,
+  setTheme,
+}: {
+  theme: string;
+  setTheme: Function;
+}) => {
   const { navigate } = useNavigateContext();
   const { isLoading } = useAuthService();
   const token = getToken();
-  const theme = getTheme();
 
   const NavOptions = React.useMemo(
     () => () =>
@@ -65,11 +69,7 @@ export const NavbarComp = () => {
           </Typography>
           <Box>
             <IconButton sx={{ ml: 1 }} onClick={toggleMode} color="inherit">
-              {theme.palette.mode === "dark" ? (
-                <Brightness7Icon />
-              ) : (
-                <Brightness4Icon />
-              )}
+              {theme === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
             </IconButton>
           </Box>
           <NavOptions />
