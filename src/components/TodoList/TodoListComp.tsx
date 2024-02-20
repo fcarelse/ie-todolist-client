@@ -22,11 +22,13 @@ export const TodoListComp = ({
     })();
   }, []);
 
+  const todos = todolist.todos instanceof Array ? todolist.todos : [];
+
   return (
     <div>
       TodoList Component ({todolist.name || "&lt;No Name&gt;"})
-      <ul>
-        {todolist.todos.map((todo, index) => (
+      {todos.map((todo, index) => (
+        <div>
           <TodoComp
             {...{
               append: () => append(index),
@@ -35,8 +37,8 @@ export const TodoListComp = ({
               todo,
             }}
           ></TodoComp>
-        ))}
-      </ul>
+        </div>
+      ))}
     </div>
   );
 };
