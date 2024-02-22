@@ -5,8 +5,10 @@ export type TodoListType = {
   todos: Array<TodoType>;
 };
 
-export type TodoListMethods = {
+export type TodoListProps = {
+  todolist: TodoListType;
   list: Function;
+  change: Function;
   append: Function;
   remove: Function;
   update: Function;

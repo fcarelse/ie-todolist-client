@@ -1,32 +1,20 @@
-import { useEffect } from "react";
-import { getTodoList, setTodos } from "../../store/TodoList/TodoListStore";
-import { URLS } from "../../helper/Constants/Constants";
-import { fetchData } from "../../helper/Fetch/FetchHelper";
 import { TodoType } from "../../types/Todo/TodoType";
 import { TodoComp } from "../Todo/TodoComp";
-import { TodoListMethods } from "../../types/TodoList/TodoListType";
+import { TodoListType, TodoListProps } from "../../types/TodoList/TodoListType";
 
 export const TodoListComp = ({
-  list,
+  todolist,
+  change,
   append,
   remove,
   update,
-}: TodoListMethods) => {
-  const todolist = getTodoList();
-  useEffect(() => {
-    (async () => {
-      try {
-        const todos = await fetchData({ url: URLS.todos });
-        setTodos(todos as Array<TodoType>);
-      } catch (error) {}
-    })();
-  }, []);
-
+}: TodoListProps) => {
   const todos = todolist.todos instanceof Array ? todolist.todos : [];
 
   return (
     <div>
-      TodoList Component ({todolist.name || "&lt;No Name&gt;"})
+      TodoList Component (
+      {todolist.name || <span style={{ color: "red" }}>{"<No Name>"}</span>})
       {todos.map((todo, index) => (
         <div>
           <TodoComp
@@ -34,6 +22,8 @@ export const TodoListComp = ({
               append: () => append(index),
               remove: () => remove(index),
               update: (newTodo: TodoType) => update(index, newTodo),
+              change: (field: keyof TodoType, value: string) =>
+                change(index, field, value),
               todo,
             }}
           ></TodoComp>
