@@ -1,6 +1,5 @@
 export const TOKEN_BLANK = "";
 export const STORE_TOKEN_ID = "token";
-export const STORE_TODOLIST_ID = "todolist";
 export const STORE_THEME_ID = "theme";
 
 export enum URLS {

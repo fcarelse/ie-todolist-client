@@ -13,34 +13,33 @@ import { ChangeEvent } from "react";
 
 export const TodoComp = ({
   todo,
+  list,
   append,
+  update,
   remove,
-  change,
 }: {
   todo: TodoType;
-  append: any;
-  remove: any;
-  change: any;
+  list: Function;
+  append: Function;
+  update: Function;
+  remove: Function;
 }) => {
   const changedField =
     (field: keyof TodoType) => (changeEvent: ChangeEvent<HTMLInputElement>) => {
       // @ts-ignore
-      change(field, changeEvent.target?.value || "");
+      update({ ...todo, [field]: changeEvent.target?.value || "" });
     };
 
   const changedSelect =
     (field: keyof TodoType) => (changeEvent: SelectChangeEvent<string>) => {
       // @ts-ignore
-      change(field, changeEvent.target?.value || "");
+      update({ ...todo, [field]: changeEvent.target?.value || "" }).then(list);
     };
 
   const cellMargin = "8px";
 
   return (
     <Box>
-      <Button onClick={() => append()}>
-        <PlusOne />
-      </Button>
       <Button onClick={() => remove()}>
         <Delete />
       </Button>

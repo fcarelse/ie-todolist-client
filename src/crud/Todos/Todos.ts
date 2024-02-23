@@ -2,7 +2,7 @@ import { URLS } from "../../helper/Constants/Constants";
 import { fetchData } from "../../helper/Fetch/FetchHelper";
 import { TodoType } from "../../types/Todo/TodoType";
 
-export const crudTodoList = {
+export const crudTodos = {
   async list() {
     try {
       const res = await fetchData({ url: URLS.todos, method: "get" });
@@ -13,13 +13,15 @@ export const crudTodoList = {
     }
   },
 
-  async create(todo: TodoType) {
+  async create() {
     try {
-      const res = await fetchData({ url: URLS.todos, method: "post" });
-      if (res.error) return false;
-      return true;
+      const todo = await fetchData({
+        url: URLS.todos,
+        method: "post",
+      });
+      return todo;
     } catch (error) {
-      return false;
+      return null;
     }
   },
 
@@ -27,7 +29,7 @@ export const crudTodoList = {
     try {
       const res = await fetchData({
         url: URLS.todos + `/${id}`,
-        method: "post",
+        method: "get",
       });
       if (res.error) return false;
       return true;
@@ -40,13 +42,12 @@ export const crudTodoList = {
     try {
       const res = await fetchData({
         url: URLS.todos + `/${todo.id}`,
-        method: "post",
+        method: "put",
         data: todo,
       });
-      if (res.error) return false;
-      return true;
+      return res;
     } catch (error) {
-      return false;
+      return { error: 599 };
     }
   },
 
@@ -54,7 +55,7 @@ export const crudTodoList = {
     try {
       const res = await fetchData({
         url: URLS.todos + `/${id}`,
-        method: "post",
+        method: "delete",
       });
       if (res.error) return false;
       return true;

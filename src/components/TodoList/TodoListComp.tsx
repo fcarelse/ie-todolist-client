@@ -1,29 +1,34 @@
 import { TodoType } from "../../types/Todo/TodoType";
 import { TodoComp } from "../Todo/TodoComp";
-import { TodoListType, TodoListProps } from "../../types/TodoList/TodoListType";
+import { TodoListProps } from "../../types/TodoList/TodoListType";
+import { Button } from "@mui/material";
+import { PlusOne, Refresh } from "@mui/icons-material";
 
 export const TodoListComp = ({
-  todolist,
-  change,
+  todos,
+  list,
   append,
   remove,
   update,
 }: TodoListProps) => {
-  const todos = todolist.todos instanceof Array ? todolist.todos : [];
-
   return (
     <div>
-      TodoList Component (
-      {todolist.name || <span style={{ color: "red" }}>{"<No Name>"}</span>})
+      TodoList Component ({" "}
+      <Button onClick={() => append()}>
+        <PlusOne />
+      </Button>
+      <Button onClick={() => list()}>
+        <Refresh />
+      </Button>
+      )
       {todos.map((todo, index) => (
-        <div>
+        <div key={index}>
           <TodoComp
             {...{
+              list: () => list(),
               append: () => append(index),
               remove: () => remove(index),
-              update: (newTodo: TodoType) => update(index, newTodo),
-              change: (field: keyof TodoType, value: string) =>
-                change(index, field, value),
+              update: (newTodo: TodoType) => update(newTodo),
               todo,
             }}
           ></TodoComp>

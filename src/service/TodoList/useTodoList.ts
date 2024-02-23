@@ -1,76 +1,57 @@
 import { useEffect, useState } from "react";
-import { URLS } from "../../helper/Constants/Constants";
-import { fetchData } from "../../helper/Fetch/FetchHelper";
 import {
-  restoreTodoList,
-  storeTodoList,
-} from "../../store/TodoList/TodoListStore";
+  TODO_STATUSES,
+  TODO_STATUSES_TAGS,
+  URLS,
+} from "../../helper/Constants/Constants";
+import { fetchData } from "../../helper/Fetch/FetchHelper";
 import { TodoType } from "../../types/Todo/TodoType";
-import { createId } from "@paralleldrive/cuid2";
-import { TodoListProps, TodoListType } from "../../types/TodoList/TodoListType";
-
-const newTodo = () => ({ id: createId() } as TodoType);
+import { TodoListProps } from "../../types/TodoList/TodoListType";
+import { crudTodos } from "../../crud/Todos/Todos";
 
 export const useTodoList: () => TodoListProps = () => {
-  const [todolist, setTodoListState] = useState<TodoListType>({
-    todos: [],
-  });
+  const [todos, setTodos] = useState<Array<TodoType>>([]);
 
   useEffect(() => {
-    (async () => {
-      try {
-        let todos: Array<TodoType> = await fetchData({ url: URLS.todos });
-        if (!(todos instanceof Array)) todos = [] as Array<TodoType>;
-        updateTodos(todos);
-      } catch (error) {}
-    })();
+    list();
   }, []);
-
-  const updateTodos = (todos: Array<TodoType>) => {
-    setTodoListState({ ...todolist, todos });
-    storeTodoList({ ...todolist, todos });
-  };
 
   const list = async () => {
     try {
-      // const todos = await fetchData({ url: URLS.todos, method: "get" });
-      const { todos } = await restoreTodoList();
-      updateTodos(todos);
-    } catch (error) {}
-
-    return restoreTodoList();
+      const resTodos = (await fetchData({
+        url: URLS.todos,
+        method: "get",
+      })) as Array<TodoType>;
+      // const { todos } = await restoreTodoList();
+      const nextTodos = [
+        ...resTodos.map((todo, index) => ({ ...todo, index } as TodoType)),
+      ] as Array<TodoType>;
+      setTodos(nextTodos);
+      console.log({ nextTodos });
+      return nextTodos;
+    } catch (error) {
+      return todos;
+    }
   };
 
-  const change = async (
-    index: number,
-    field: keyof TodoType,
-    value: string
-  ) => {
-    const { todos } = await list();
-    if (todos[index] === undefined) return;
-    const changedTodo = { ...todos[index], [field]: value };
-    Object.assign(todos[index], changedTodo, { id: todos[index].id });
-    updateTodos(todos);
-  };
-
-  const append = async (index: number) => {
-    const { todos } = await list();
-    todos.splice(index || 0, 0, newTodo());
-    updateTodos(todos);
+  const append = async () => {
+    await crudTodos.create();
+    list();
   };
 
   const remove = async (index: number) => {
-    const { todos } = await list();
-    todos.splice(index || 0, 1);
-    updateTodos(todos);
-  };
-
-  const update = async (index: number, updatedTodo: TodoType) => {
-    const { todos } = await list();
     if (todos[index] === undefined) return;
-    Object.assign(todos[index], updatedTodo, { id: todos[index].id });
-    updateTodos(todos);
+    await crudTodos.delete(todos[index].id);
+    list();
   };
 
-  return { todolist, list, change, append, remove, update };
+  const update = async (updatedTodo: TodoType) => {
+    await crudTodos.update(updatedTodo);
+    const newTodos = todos.map((todo, index) =>
+      index === updatedTodo.index ? { ...todo, ...updatedTodo } : { ...todo }
+    );
+    setTodos(newTodos);
+  };
+
+  return { todos, list, append, remove, update };
 };
