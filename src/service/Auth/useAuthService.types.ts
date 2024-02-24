@@ -6,4 +6,4 @@ export type Credentials = {
 export type LoginHandlerType = ({
   email,
   password,
-}: Credentials) => Promise<boolean>;
+}: Credentials) => Promise<string>;

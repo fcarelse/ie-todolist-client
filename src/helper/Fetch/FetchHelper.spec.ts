@@ -15,7 +15,6 @@ describe("FetchHelper", () => {
       url: "/login",
       data: {},
       method: "post",
-      token: "",
       fetcher: fetchMock,
     });
 

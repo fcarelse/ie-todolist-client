@@ -2,9 +2,8 @@ export type FetchMethods = "post" | "get" | "put" | "delete";
 
 export type FetchParamaters = {
   url: string;
-  data?: object;
+  data?: any;
   method?: FetchMethods;
-  token?: string;
   fetcher?: any;
 };
 
