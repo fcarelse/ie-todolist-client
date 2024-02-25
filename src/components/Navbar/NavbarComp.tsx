@@ -5,8 +5,13 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuthContext } from "../../context/Auth/AuthContext";
+import { Link } from "react-router-dom";
+import { useAuthService } from "../../service/Auth/useAuthService";
+import { useNavigateContext } from "../../context/Navigate/NavigateContext";
+import { getToken } from "../../store/Token/TokenStore";
+import { IconButton } from "@mui/material";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 
 const navItems = {
   guest: [
@@ -16,13 +21,20 @@ const navItems = {
   user: [
     { label: "Todolist", target: "/todolist", tag: "todolist" },
     { label: "About", target: "/about", tag: "about" },
-    { label: "Logout", target: "/logout", tag: "logout" },
+    { label: "LogOut", target: "/logout", tag: "logout" },
   ],
 };
 
-export const NavbarComp = () => {
-  const navigate = useNavigate();
-  const { token } = useAuthContext();
+export const NavbarComp = ({
+  theme,
+  setTheme,
+}: {
+  theme: string;
+  setTheme: Function;
+}) => {
+  const { navigate } = useNavigateContext();
+  const { isLoading } = useAuthService();
+  const token = getToken();
 
   const NavOptions = React.useMemo(
     () => () =>
@@ -38,6 +50,11 @@ export const NavbarComp = () => {
     [token]
   );
 
+  const toggleMode = () => {
+    if (theme === "dark") setTheme("light");
+    if (theme === "light") setTheme("dark");
+  };
+
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
       <CssBaseline />
@@ -48,7 +65,13 @@ export const NavbarComp = () => {
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
             <span onClick={() => navigate("/")}>Todolist IE</span>
+            {isLoading ? "Loading..." : ""}
           </Typography>
+          <Box>
+            <IconButton sx={{ ml: 1 }} onClick={toggleMode} color="inherit">
+              {theme === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
+            </IconButton>
+          </Box>
           <NavOptions />
         </Toolbar>
       </AppBar>

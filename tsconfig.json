@@ -26,5 +26,13 @@
   "types": ["node", "jest", "@testing-library/jest-dom"],
   "include": [
     "src"
-  ]
+  ],
+  "baseUrl": "./src",
+  "paths":{
+    "@themes/*": ["themes/*"],
+    "@pages/*": ["pages/*"],
+    "@components/*": ["components/*"],
+    "@context/*": ["context/*"],
+    "@service/*": ["service/*"]
+  }
 }
