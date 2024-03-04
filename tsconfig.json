@@ -21,7 +21,8 @@
     "jsx": "react-jsx"
   },
   "files":[
-    "*.ts"
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
   ],
   "types": ["node", "jest", "@testing-library/jest-dom"],
   "include": [
@@ -29,10 +30,10 @@
   ],
   "baseUrl": "./src",
   "paths":{
-    "@themes/*": ["themes/*"],
-    "@pages/*": ["pages/*"],
-    "@components/*": ["components/*"],
-    "@context/*": ["context/*"],
-    "@service/*": ["service/*"]
+    "@themes/*": ["src/themes/*"],
+    "@pages/*": ["src/pages/*"],
+    "@components/*": ["src/components/*"],
+    "@context/*": ["src/context/*"],
+    "@service/*": ["src/service/*"]
   }
 }
