@@ -37,7 +37,6 @@ export const useAuthService = (fetcher?: any) => {
       });
       setIsLoading(false);
       setToken(resData.token);
-      console.log(`Token: ${resData.token}`);
       navigate("/todolist");
       return resData.token;
     } catch (e: any) {

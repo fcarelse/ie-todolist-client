@@ -1,11 +1,10 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { TodolistPage } from "./TodolistPage";
 import { test, expect } from "@jest/globals";
+// import { TodoListComp } from "../../components/TodoList/TodoListComp";
 
 test.skip("Is Functional Component", () => {
   render(<TodolistPage />);
-  const el = screen.getByText(/Todolist Page/i);
-  expect(el).toBeInTheDocument();
+  expect(screen).toContain("TodoListComp");
 });

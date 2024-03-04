@@ -5,6 +5,9 @@ export const TodolistPage = () => {
   const { todos, list, append, remove, update } = useTodoList();
 
   return (
-    <TodoListComp {...{ todos, list, append, remove, update }}></TodoListComp>
+    <>
+      Todolist Page
+      <TodoListComp {...{ todos, list, append, remove, update }}></TodoListComp>
+    </>
   );
 };
